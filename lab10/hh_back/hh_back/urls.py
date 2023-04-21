@@ -16,15 +16,22 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from api.views import *
+from rest_framework.urlpatterns import format_suffix_patterns
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/companies/', get_api_companies),
+    path('api/companies/post/', create_company),
     path('api/companies/<int:id>/', get_api_companies_id),
     path('api/companies/<int:id>/vacancies/', get_api_companies_id_vacancies),
     path('api/vacancies/', get_api_vacancies),
+    path('api/vacancies/post/', create_vacancy),
     path('api/vacancies/<int:id>/', get_api_vacancies_id),
     path('api/vacancies/top_ten/', get_api_vacancies_top_ten),
-
+    path('api/companyview/<int:pk>/', CompanyView.as_view()),
+    path('api/vacancyview/<int:pk>/', VacancyView.as_view()),
 
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns)
